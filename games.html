@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Nexus Gaming</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:#050508;
+    color:white;
+    font-family:Arial,Helvetica,sans-serif;
+    min-height:100vh;
+}
+
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    z-index:-1;
+
+    background:
+        radial-gradient(circle at 10% 10%,rgba(124,58,237,.18),transparent 30%),
+        radial-gradient(circle at 90% 80%,rgba(37,99,235,.12),transparent 30%);
+}
+
+nav{
+    height:75px;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    padding:0 6%;
+
+    position:sticky;
+    top:0;
+    z-index:10;
+
+    background:rgba(5,5,8,.75);
+    backdrop-filter:blur(20px);
+
+    border-bottom:1px solid rgba(255,255,255,.06);
+}
+
+.logo{
+    font-size:21px;
+    font-weight:900;
+    letter-spacing:5px;
+
+    background:linear-gradient(90deg,#fff,#a855f7);
+    -webkit-background-clip:text;
+    color:transparent;
+}
+
+.back{
+    color:#aaa;
+    text-decoration:none;
+    padding:10px 15px;
+    border-radius:10px;
+
+    transition:.3s;
+}
+
+.back:hover{
+    color:white;
+    background:rgba(255,255,255,.06);
+}
+
+.hero{
+    padding:80px 7% 45px;
+}
+
+.hero small{
+    color:#a855f7;
+    font-weight:bold;
+    letter-spacing:4px;
+}
+
+.hero h1{
+    font-size:clamp(45px,7vw,80px);
+    margin:15px 0;
+}
+
+.hero p{
+    color:#888894;
+    max-width:600px;
+    line-height:1.7;
+}
+
+.controls{
+    padding:0 7% 35px;
+
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+}
+
+.search{
+    flex:1;
+    min-width:250px;
+
+    background:#0d0d13;
+    border:1px solid rgba(255,255,255,.08);
+
+    color:white;
+
+    padding:15px 18px;
+    border-radius:12px;
+
+    outline:none;
+}
+
+.search:focus{
+    border-color:#7c3aed;
+}
+
+.category{
+    border:1px solid rgba(255,255,255,.08);
+    background:#0d0d13;
+    color:#999;
+
+    padding:0 18px;
+    border-radius:12px;
+
+    cursor:pointer;
+}
+
+.category.active,
+.category:hover{
+    background:#7c3aed;
+    color:white;
+    border-color:#7c3aed;
+}
+
+.container{
+    padding:0 7% 80px;
+}
+
+.grid{
+    display:grid;
+
+    grid-template-columns:
+        repeat(auto-fill,minmax(190px,1fr));
+
+    gap:20px;
+}
+
+.card{
+    position:relative;
+
+    min-height:270px;
+
+    border-radius:18px;
+
+    overflow:hidden;
+
+    background:
+        linear-gradient(145deg,#191522,#0b0b10);
+
+    border:1px solid rgba(255,255,255,.07);
+
+    cursor:pointer;
+
+    transition:.35s;
+}
+
+.card:hover{
+    transform:translateY(-8px);
+
+    border-color:#8b5cf6;
+
+    box-shadow:
+        0 20px 50px rgba(0,0,0,.4);
+}
+
+.cover{
+    height:185px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:55px;
+
+    background:
+        radial-gradient(circle at center,
+        rgba(168,85,247,.35),
+        transparent 65%);
+}
+
+.info{
+    padding:16px;
+}
+
+.info h3{
+    font-size:16px;
+    margin-bottom:7px;
+}
+
+.info p{
+    color:#777783;
+    font-size:12px;
+}
+
+.badge{
+    position:absolute;
+    top:12px;
+    left:12px;
+
+    padding:6px 9px;
+
+    background:rgba(0,0,0,.65);
+
+    border-radius:7px;
+
+    font-size:10px;
+    font-weight:bold;
+}
+
+.no-results{
+    display:none;
+
+    color:#777;
+    text-align:center;
+
+    padding:70px 20px;
+}
+
+@media(max-width:600px){
+
+    .hero{
+        padding:55px 25px 35px;
+    }
+
+    .controls{
+        padding:0 25px 30px;
+    }
+
+    .container{
+        padding:0 25px 60px;
+    }
+
+    .grid{
+        grid-template-columns:repeat(2,1fr);
+        gap:12px;
+    }
+
+    .card{
+        min-height:230px;
+    }
+
+    .cover{
+        height:150px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+
+    <div class="logo">
+        NEXUS
+    </div>
+
+    <a href="index.html" class="back">
+        ← Voltar
+    </a>
+
+</nav>
+
+<section class="hero">
+
+    <small>NEXUS GAMING</small>
+
+    <h1>
+        Jogue agora.
+    </h1>
+
+    <p>
+        Descubra jogos, explore categorias e encontre
+        sua próxima diversão diretamente no navegador.
+    </p>
+
+</section>
+
+<div class="controls">
+
+    <input
+        id="search"
+        class="search"
+        type="text"
+        placeholder="🔎 Pesquisar jogos..."
+    >
+
+    <button
+        class="category active"
+        data-category="Todos"
+    >
+        Todos
+    </button>
+
+    <button
+        class="category"
+        data-category="Ação"
+    >
+        ⚔️ Ação
+    </button>
+
+    <button
+        class="category"
+        data-category="Arcade"
+    >
+        👾 Arcade
+    </button>
+
+    <button
+        class="category"
+        data-category="Corrida"
+    >
+        🏎️ Corrida
+    </button>
+
+</div>
+
+<main class="container">
+
+    <div id="games" class="grid">
+
+        <div
+            class="card"
+            data-name="Nexus Dodge"
+            data-category="Arcade"
+            onclick="location.href='games/nexus-dodge.html'"
+        >
+
+            <div class="badge">
+                NOVO
+            </div>
+
+            <div class="cover">
+                🟣
+            </div>
+
+            <div class="info">
+
+                <h3>
+                    Nexus Dodge
+                </h3>
+
+                <p>
+                    Arcade • Sobreviva o máximo possível
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div
+            class="card"
+            data-name="Nexus Arena"
+            data-category="Ação"
+        >
+
+            <div class="cover">
+                ⚔️
+            </div>
+
+            <div class="info">
+
+                <h3>
+                    Nexus Arena
+                </h3>
+
+                <p>
+                    Ação
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div
+            class="card"
+            data-name="Nexus Racing"
+            data-category="Corrida"
+        >
+
+            <div class="cover">
+                🏎️
+            </div>
+
+            <div class="info">
+
+                <h3>
+                    Nexus Racing
+                </h3>
+
+                <p>
+                    Corrida
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div
+            class="card"
+            data-name="Pixel Quest"
+            data-category="Arcade"
+        >
+
+            <div class="cover">
+                👾
+            </div>
+
+            <div class="info">
+
+                <h3>
+                    Pixel Quest
+                </h3>
+
+                <p>
+                    Arcade
+                </p>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+    <div id="noResults" class="no-results">
+        Nenhum jogo encontrado.
+    </div>
+
+</main>
+
+<script>
+
+const search = document.getElementById("search");
+const cards = document.querySelectorAll(".card");
+const buttons = document.querySelectorAll(".category");
+const noResults = document.getElementById("noResults");
+
+let selectedCategory = "Todos";
+
+function filterGames(){
+
+    const text =
+        search.value.toLowerCase().trim();
+
+    let visible = 0;
+
+    cards.forEach(card => {
+
+        const name =
+            card.dataset.name.toLowerCase();
+
+        const category =
+            card.dataset.category;
+
+        const matchesText =
+            name.includes(text);
+
+        const matchesCategory =
+            selectedCategory === "Todos" ||
+            category === selectedCategory;
+
+        if(matchesText && matchesCategory){
+
+            card.style.display = "";
+
+            visible++;
+
+        }else{
+
+            card.style.display = "none";
+
+        }
+
+    });
+
+    noResults.style.display =
+        visible === 0 ? "block" : "none";
+}
+
+search.addEventListener(
+    "input",
+    filterGames
+);
+
+buttons.forEach(button => {
+
+    button.addEventListener(
+        "click",
+        () => {
+
+            buttons.forEach(b =>
+                b.classList.remove("active")
+            );
+
+            button.classList.add("active");
+
+            selectedCategory =
+                button.dataset.category;
+
+            filterGames();
+
+        }
+    );
+
+});
+
+</script>
+
+</body>
+</html>

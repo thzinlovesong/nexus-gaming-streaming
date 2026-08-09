@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width,initial-scale=1.0"
+>
+
+<title>Nexus Dodge</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+
+    background:#050508;
+
+    color:white;
+
+    font-family:Arial;
+
+    min-height:100vh;
+
+    display:flex;
+
+    flex-direction:column;
+
+}
+
+header{
+
+    height:70px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    padding:0 5%;
+
+    background:#09090f;
+
+    border-bottom:
+        1px solid
+        rgba(255,255,255,.07);
+
+}
+
+.logo{
+
+    font-weight:900;
+
+    letter-spacing:5px;
+
+    color:#a855f7;
+
+}
+
+.back{
+
+    color:#aaa;
+
+    text-decoration:none;
+
+}
+
+.game-area{
+
+    flex:1;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:25px;
+
+}
+
+canvas{
+
+    max-width:100%;
+
+    width:800px;
+
+    height:auto;
+
+    border-radius:15px;
+
+    border:
+        1px solid
+        rgba(168,85,247,.5);
+
+    box-shadow:
+        0 0 60px
+        rgba(124,58,237,.18);
+
+    background:#08080d;
+
+}
+
+.info{
+
+    width:800px;
+
+    max-width:100%;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    margin-top:15px;
+
+    color:#888;
+
+}
+
+button{
+
+    border:0;
+
+    padding:10px 18px;
+
+    border-radius:8px;
+
+    background:#7c3aed;
+
+    color:white;
+
+    cursor:pointer;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+    <div class="logo">
+        NEXUS
+    </div>
+
+    <a
+        href="../games.html"
+        class="back"
+    >
+        ← Jogos
+    </a>
+
+</header>
+
+<div class="game-area">
+
+    <canvas
+        id="game"
+        width="800"
+        height="500"
+    ></canvas>
+
+    <div class="info">
+
+        <span>
+            Pontos: <b id="score">0</b>
+        </span>
+
+        <button onclick="restart()">
+            Reiniciar
+        </button>
+
+    </div>
+
+</div>
+
+<script>
+
+const canvas =
+    document.getElementById("game");
+
+const ctx =
+    canvas.getContext("2d");
+
+const scoreElement =
+    document.getElementById("score");
+
+let player;
+let enemies;
+let score;
+let gameOver;
+let keys = {};
+
+function restart(){
+
+    player = {
+
+        x:400,
+
+        y:430,
+
+        width:35,
+
+        height:35,
+
+        speed:6
+
+    };
+
+    enemies=[];
+
+    score=0;
+
+    gameOver=false;
+
+}
+
+restart();
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        keys[event.key.toLowerCase()] = true;
+
+    }
+);
+
+document.addEventListener(
+    "keyup",
+    event => {
+
+        keys[event.key.toLowerCase()] = false;
+
+    }
+);
+
+function spawnEnemy(){
+
+    enemies.push({
+
+        x:
+            Math.random() *
+            (canvas.width-30),
+
+        y:-30,
+
+        width:30,
+
+        height:30,
+
+        speed:
+            2 +
+            Math.random()*3
+
+    });
+
+}
+
+function collision(a,b){
+
+    return (
+
+        a.x < b.x+b.width &&
+
+        a.x+a.width > b.x &&
+
+        a.y < b.y+b.height &&
+
+        a.y+a.height > b.y
+
+    );
+
+}
+
+function update(){
+
+    if(gameOver)
+        return;
+
+    if(
+        keys["arrowleft"] ||
+        keys["a"]
+    ){
+
+        player.x -=
+            player.speed;
+
+    }
+
+    if(
+        keys["arrowright"] ||
+        keys["d"]
+    ){
+
+        player.x +=
+            player.speed;
+
+    }
+
+    if(player.x<0)
+        player.x=0;
+
+    if(
+        player.x >
+        canvas.width-player.width
+    ){
+
+        player.x =
+            canvas.width-player.width;
+
+    }
+
+    enemies.forEach(enemy => {
+
+        enemy.y += enemy.speed;
+
+        if(collision(player,enemy)){
+
+            gameOver=true;
+
+        }
+
+    });
+
+    enemies =
+        enemies.filter(
+            enemy =>
+                enemy.y <
+                canvas.height+50
+        );
+
+    score++;
+
+    scoreElement.textContent =
+        Math.floor(score/10);
+
+}
+
+function draw(){
+
+    ctx.clearRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
+
+    /* fundo */
+
+    ctx.fillStyle="#08080d";
+
+    ctx.fillRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
+
+    /* linhas */
+
+    ctx.strokeStyle=
+        "rgba(168,85,247,.08)";
+
+    for(let x=0;x<canvas.width;x+=50){
+
+        ctx.beginPath();
+
+        ctx.moveTo(x,0);
+
+        ctx.lineTo(x,canvas.height);
+
+        ctx.stroke();
+
+    }
+
+    for(let y=0;y<canvas.height;y+=50){
+
+        ctx.beginPath();
+
+        ctx.moveTo(0,y);
+
+        ctx.lineTo(canvas.width,y);
+
+        ctx.stroke();
+
+    }
+
+    /* jogador */
+
+    ctx.fillStyle="#a855f7";
+
+    ctx.shadowBlur=25;
+
+    ctx.shadowColor="#a855f7";
+
+    ctx.fillRect(
+
+        player.x,
+        player.y,
+        player.width,
+        player.height
+
+    );
+
+    ctx.shadowBlur=0;
+
+    /* inimigos */
+
+    enemies.forEach(enemy => {
+
+        ctx.fillStyle="#ef4444";
+
+        ctx.fillRect(
+
+            enemy.x,
+            enemy.y,
+            enemy.width,
+            enemy.height
+
+        );
+
+    });
+
+    if(gameOver){
+
+        ctx.fillStyle=
+            "rgba(0,0,0,.7)";
+
+        ctx.fillRect(
+            0,
+            0,
+            canvas.width,
+            canvas.height
+        );
+
+        ctx.fillStyle="white";
+
+        ctx.textAlign="center";
+
+        ctx.font="bold 45px Arial";
+
+        ctx.fillText(
+            "GAME OVER",
+            canvas.width/2,
+            canvas.height/2
+        );
+
+        ctx.font="18px Arial";
+
+        ctx.fillText(
+            "Clique em Reiniciar",
+            canvas.width/2,
+            canvas.height/2+40
+        );
+
+    }
+
+}
+
+function loop(){
+
+    update();
+
+    draw();
+
+    requestAnimationFrame(loop);
+
+}
+
+setInterval(
+    () => {
+
+        if(!gameOver)
+            spawnEnemy();
+
+    },
+    700
+);
+
+loop();
+
+</script>
+
+</body>
+
+</html>

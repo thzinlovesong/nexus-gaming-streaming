@@ -1,12 +1,21 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
+
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="description" content="Nexus Gaming & Streaming">
 
 <title>NEXUS — Gaming & Streaming</title>
 
 <style>
+
+/* =====================================================
+   RESET
+===================================================== */
 
 *{
     margin:0;
@@ -25,17 +34,20 @@ body{
     overflow-x:hidden;
 }
 
-/* =========================
-   BACKGROUND
-========================= */
+/* =====================================================
+   FUNDO
+===================================================== */
 
 body::before{
     content:"";
+
     position:fixed;
     inset:0;
+
     z-index:-5;
 
     background:
+
         radial-gradient(
             circle at 15% 20%,
             rgba(124,58,237,.20),
@@ -44,7 +56,7 @@ body::before{
 
         radial-gradient(
             circle at 85% 70%,
-            rgba(37,99,235,.16),
+            rgba(37,99,235,.15),
             transparent 30%
         ),
 
@@ -57,31 +69,38 @@ body::before{
         #050508;
 }
 
-/* =========================
-   PARTICLES
-========================= */
+/* =====================================================
+   PARTÍCULAS
+===================================================== */
 
 .particles{
     position:fixed;
     inset:0;
-    pointer-events:none;
+
     overflow:hidden;
+
+    pointer-events:none;
+
     z-index:-1;
 }
 
 .particle{
     position:absolute;
+
     width:3px;
     height:3px;
-    background:#a855f7;
+
     border-radius:50%;
-    opacity:.45;
+
+    background:#a855f7;
+
+    opacity:.5;
 
     animation:
-        float 8s infinite ease-in-out;
+        floating 8s infinite ease-in-out;
 }
 
-@keyframes float{
+@keyframes floating{
 
     0%,100%{
         transform:translateY(0);
@@ -90,25 +109,31 @@ body::before{
 
     50%{
         transform:translateY(-80px);
-        opacity:.8;
+        opacity:.9;
     }
 
 }
 
-/* =========================
+/* =====================================================
    LOADING
-========================= */
+===================================================== */
 
 #loading{
+
     position:fixed;
+
     inset:0;
+
     z-index:9999;
 
     display:flex;
+
     justify-content:center;
+
     align-items:center;
 
     background:
+
         radial-gradient(
             circle at center,
             #211044,
@@ -122,18 +147,21 @@ body::before{
 }
 
 #loading.hide{
+
     opacity:0;
+
     visibility:hidden;
 }
 
 .loading-content{
+
     text-align:center;
 }
 
 .loading-logo{
 
     font-size:
-        clamp(45px,8vw,90px);
+        clamp(50px,9vw,100px);
 
     font-weight:900;
 
@@ -141,6 +169,7 @@ body::before{
         clamp(8px,2vw,18px);
 
     background:
+
         linear-gradient(
             90deg,
             #fff,
@@ -153,6 +182,7 @@ body::before{
     background-size:300%;
 
     -webkit-background-clip:text;
+
     color:transparent;
 
     animation:
@@ -165,20 +195,20 @@ body::before{
 
     color:#8b8b98;
 
-    letter-spacing:8px;
-
     font-size:12px;
+
+    letter-spacing:7px;
 }
 
 .loading-line{
 
-    width:280px;
-    max-width:70vw;
+    width:300px;
+
+    max-width:75vw;
 
     height:3px;
 
-    margin:
-        35px auto 15px;
+    margin:35px auto 15px;
 
     background:#1b1823;
 
@@ -190,9 +220,11 @@ body::before{
 .loading-progress{
 
     width:0;
+
     height:100%;
 
     background:
+
         linear-gradient(
             90deg,
             #6d28d9,
@@ -201,7 +233,7 @@ body::before{
         );
 
     animation:
-        progress 2.7s ease forwards;
+        progress 2.5s ease forwards;
 }
 
 .loading-text{
@@ -214,9 +246,11 @@ body::before{
 }
 
 @keyframes progress{
+
     to{
         width:100%;
     }
+
 }
 
 @keyframes logoShine{
@@ -231,22 +265,25 @@ body::before{
 
 }
 
-/* =========================
+/* =====================================================
    APP
-========================= */
+===================================================== */
 
 #app{
+
     opacity:0;
+
     transition:1s ease;
 }
 
 #app.show{
+
     opacity:1;
 }
 
-/* =========================
+/* =====================================================
    NAVBAR
-========================= */
+===================================================== */
 
 .navbar{
 
@@ -258,22 +295,20 @@ body::before{
 
     height:76px;
 
+    z-index:100;
+
     display:flex;
 
     align-items:center;
 
     justify-content:space-between;
 
-    padding:
-        0 6%;
-
-    z-index:100;
+    padding:0 6%;
 
     background:
-        rgba(5,5,8,.65);
+        rgba(5,5,8,.70);
 
-    backdrop-filter:
-        blur(18px);
+    backdrop-filter:blur(18px);
 
     border-bottom:
         1px solid
@@ -282,15 +317,16 @@ body::before{
 
 .logo-small{
 
-    font-weight:900;
+    font-size:21px;
 
-    font-size:20px;
+    font-weight:900;
 
     letter-spacing:5px;
 
     cursor:pointer;
 
     background:
+
         linear-gradient(
             90deg,
             #fff,
@@ -306,7 +342,7 @@ body::before{
 
     display:flex;
 
-    gap:8px;
+    gap:6px;
 }
 
 .nav-links button{
@@ -315,10 +351,9 @@ body::before{
 
     background:transparent;
 
-    color:#8e8e99;
+    color:#888894;
 
-    padding:
-        10px 16px;
+    padding:10px 16px;
 
     border-radius:10px;
 
@@ -333,12 +368,11 @@ body::before{
 
     background:
         rgba(255,255,255,.06);
-
 }
 
-/* =========================
-   SELECTOR
-========================= */
+/* =====================================================
+   SELETOR
+===================================================== */
 
 #selector{
 
@@ -348,12 +382,12 @@ body::before{
 
     flex-direction:column;
 
-    align-items:center;
-
     justify-content:center;
 
+    align-items:center;
+
     padding:
-        120px 25px 60px;
+        120px 25px 70px;
 
     text-align:center;
 }
@@ -364,9 +398,9 @@ body::before{
 
     font-size:11px;
 
-    letter-spacing:5px;
-
     font-weight:bold;
+
+    letter-spacing:5px;
 
     margin-bottom:18px;
 }
@@ -374,18 +408,19 @@ body::before{
 .selector-title{
 
     font-size:
-        clamp(42px,7vw,82px);
+        clamp(45px,7vw,85px);
 
     line-height:1;
 
     font-weight:900;
 
-    margin-bottom:20px;
+    margin-bottom:22px;
 }
 
 .selector-title span{
 
     background:
+
         linear-gradient(
             90deg,
             #fff,
@@ -402,27 +437,25 @@ body::before{
 
     color:#888894;
 
-    max-width:550px;
+    max-width:580px;
 
     line-height:1.7;
-
-    margin:auto;
 
     margin-bottom:55px;
 }
 
 .mode-container{
 
+    width:100%;
+
     display:grid;
 
     grid-template-columns:
-        repeat(2,minmax(280px,420px));
-
-    gap:25px;
-
-    width:100%;
+        repeat(2,minmax(280px,430px));
 
     justify-content:center;
+
+    gap:25px;
 }
 
 .mode-card{
@@ -433,46 +466,29 @@ body::before{
 
     padding:40px;
 
-    border:
-        1px solid
-        rgba(255,255,255,.08);
-
-    border-radius:25px;
-
     text-align:left;
 
     overflow:hidden;
 
     cursor:pointer;
 
+    border-radius:25px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.08);
+
     background:
+
         linear-gradient(
             145deg,
             rgba(255,255,255,.07),
             rgba(255,255,255,.025)
         );
 
-    backdrop-filter:
-        blur(10px);
+    backdrop-filter:blur(10px);
 
-    transition:
-        transform .4s,
-        border .4s,
-        box-shadow .4s;
-}
-
-.mode-card:hover{
-
-    transform:
-        translateY(-12px)
-        scale(1.015);
-
-    border-color:
-        rgba(168,85,247,.6);
-
-    box-shadow:
-        0 25px 80px
-        rgba(124,58,237,.22);
+    transition:.4s;
 }
 
 .mode-card::before{
@@ -499,6 +515,20 @@ body::before{
     background:#2563eb;
 }
 
+.mode-card:hover{
+
+    transform:
+        translateY(-12px)
+        scale(1.015);
+
+    border-color:
+        rgba(168,85,247,.6);
+
+    box-shadow:
+        0 25px 80px
+        rgba(124,58,237,.22);
+}
+
 .mode-icon{
 
     font-size:52px;
@@ -519,7 +549,7 @@ body::before{
 
     line-height:1.7;
 
-    max-width:320px;
+    max-width:330px;
 
     margin-bottom:30px;
 }
@@ -532,8 +562,7 @@ body::before{
 
     gap:10px;
 
-    padding:
-        12px 20px;
+    padding:12px 20px;
 
     border-radius:10px;
 
@@ -548,21 +577,20 @@ body::before{
 
 .mode-card:hover .mode-button{
 
-    transform:
-        translateX(5px);
+    transform:translateX(5px);
 }
 
-/* =========================
-   DASHBOARD
-========================= */
+/* =====================================================
+   DASHBOARDS
+===================================================== */
 
 .dashboard{
 
     display:none;
 
-    padding-top:76px;
-
     min-height:100vh;
+
+    padding-top:76px;
 }
 
 .dashboard.active{
@@ -570,14 +598,14 @@ body::before{
     display:block;
 
     animation:
-        dashboardIn .7s ease;
+        dashboardIn .6s ease;
 }
 
 @keyframes dashboardIn{
 
     from{
         opacity:0;
-        transform:translateY(25px);
+        transform:translateY(20px);
     }
 
     to{
@@ -587,263 +615,9 @@ body::before{
 
 }
 
-/* =========================
-   HERO
-========================= */
-
-.hero{
-
-    min-height:500px;
-
-    display:flex;
-
-    align-items:center;
-
-    padding:
-        70px 7%;
-
-    position:relative;
-
-    overflow:hidden;
-}
-
-.gaming-hero{
-
-    background:
-        radial-gradient(
-            circle at 75% 45%,
-            rgba(124,58,237,.35),
-            transparent 30%
-        );
-}
-
-.streaming-hero{
-
-    background:
-        radial-gradient(
-            circle at 75% 45%,
-            rgba(37,99,235,.30),
-            transparent 30%
-        );
-}
-
-.hero-content{
-
-    max-width:680px;
-}
-
-.hero-tag{
-
-    color:#a855f7;
-
-    font-size:11px;
-
-    font-weight:bold;
-
-    letter-spacing:4px;
-}
-
-.streaming-tag{
-
-    color:#60a5fa;
-}
-
-.hero h1{
-
-    font-size:
-        clamp(48px,7vw,90px);
-
-    line-height:.95;
-
-    margin:
-        18px 0;
-
-    font-weight:900;
-}
-
-.hero p{
-
-    color:#9999a5;
-
-    max-width:540px;
-
-    line-height:1.7;
-
-    font-size:16px;
-}
-
-.hero-button{
-
-    margin-top:28px;
-
-    border:0;
-
-    padding:
-        14px 24px;
-
-    border-radius:11px;
-
-    background:#fff;
-
-    color:#050508;
-
-    font-weight:bold;
-
-    cursor:pointer;
-
-    transition:.3s;
-}
-
-.hero-button:hover{
-
-    transform:
-        translateY(-3px);
-
-    box-shadow:
-        0 10px 30px
-        rgba(255,255,255,.15);
-}
-
-/* =========================
-   SECTIONS
-========================= */
-
-.section{
-
-    padding:
-        25px 7%;
-}
-
-.section-title{
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:space-between;
-
-    margin-bottom:20px;
-}
-
-.section-title h2{
-
-    font-size:22px;
-}
-
-.section-title span{
-
-    color:#666673;
-
-    font-size:12px;
-}
-
-.items{
-
-    display:grid;
-
-    grid-template-columns:
-        repeat(
-            auto-fill,
-            minmax(180px,1fr)
-        );
-
-    gap:18px;
-}
-
-.item{
-
-    position:relative;
-
-    height:245px;
-
-    border-radius:16px;
-
-    overflow:hidden;
-
-    border:
-        1px solid
-        rgba(255,255,255,.07);
-
-    background:
-        linear-gradient(
-            145deg,
-            #1b1724,
-            #0c0c11
-        );
-
-    cursor:pointer;
-
-    transition:.35s;
-}
-
-.item:hover{
-
-    transform:
-        translateY(-7px);
-
-    border-color:
-        rgba(168,85,247,.5);
-
-    box-shadow:
-        0 15px 40px
-        rgba(0,0,0,.35);
-}
-
-.item-image{
-
-    position:absolute;
-
-    inset:0;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    font-size:45px;
-
-    opacity:.5;
-}
-
-.item-info{
-
-    position:absolute;
-
-    bottom:0;
-
-    left:0;
-
-    right:0;
-
-    padding:18px;
-
-    z-index:2;
-
-    background:
-        linear-gradient(
-            transparent,
-            rgba(0,0,0,.9)
-        );
-}
-
-.item-info h3{
-
-    font-size:15px;
-
-    margin-bottom:5px;
-}
-
-.item-info p{
-
-    font-size:11px;
-
-    color:#898994;
-}
-
-/* =========================
-   BACK BUTTON
-========================= */
+/* =====================================================
+   VOLTAR
+===================================================== */
 
 .back{
 
@@ -877,9 +651,318 @@ body::before{
         rgba(255,255,255,.08);
 }
 
-/* =========================
+/* =====================================================
+   HERO
+===================================================== */
+
+.hero{
+
+    position:relative;
+
+    min-height:500px;
+
+    display:flex;
+
+    align-items:center;
+
+    padding:
+        70px 7%;
+
+    overflow:hidden;
+}
+
+.gaming-hero{
+
+    background:
+
+        radial-gradient(
+            circle at 75% 45%,
+            rgba(124,58,237,.35),
+            transparent 30%
+        );
+}
+
+.streaming-hero{
+
+    background:
+
+        radial-gradient(
+            circle at 75% 45%,
+            rgba(37,99,235,.30),
+            transparent 30%
+        );
+}
+
+.hero-content{
+
+    max-width:700px;
+}
+
+.hero-tag{
+
+    color:#a855f7;
+
+    font-size:11px;
+
+    font-weight:bold;
+
+    letter-spacing:4px;
+}
+
+.streaming-tag{
+
+    color:#60a5fa;
+}
+
+.hero h1{
+
+    font-size:
+        clamp(48px,7vw,90px);
+
+    line-height:.95;
+
+    font-weight:900;
+
+    margin:
+        18px 0;
+}
+
+.hero p{
+
+    max-width:570px;
+
+    color:#9999a5;
+
+    line-height:1.7;
+}
+
+.hero-button{
+
+    margin-top:28px;
+
+    padding:14px 24px;
+
+    border:0;
+
+    border-radius:11px;
+
+    background:#fff;
+
+    color:#050508;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:.3s;
+}
+
+.hero-button:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:
+        0 10px 30px
+        rgba(255,255,255,.15);
+}
+
+/* =====================================================
+   SEÇÕES
+===================================================== */
+
+.section{
+
+    padding:
+        25px 7%;
+}
+
+.section-title{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:20px;
+}
+
+.section-title h2{
+
+    font-size:22px;
+}
+
+.section-title span{
+
+    color:#666673;
+
+    font-size:12px;
+}
+
+/* =====================================================
+   CARDS
+===================================================== */
+
+.items{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fill,
+            minmax(180px,1fr)
+        );
+
+    gap:18px;
+}
+
+.item{
+
+    position:relative;
+
+    height:260px;
+
+    overflow:hidden;
+
+    border-radius:16px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.07);
+
+    background:
+
+        linear-gradient(
+            145deg,
+            #1b1724,
+            #0c0c11
+        );
+
+    cursor:pointer;
+
+    transition:.35s;
+}
+
+.item:hover{
+
+    transform:
+        translateY(-8px);
+
+    border-color:
+        rgba(168,85,247,.65);
+
+    box-shadow:
+        0 18px 45px
+        rgba(0,0,0,.40);
+}
+
+.item-image{
+
+    position:absolute;
+
+    inset:0;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:55px;
+
+    opacity:.55;
+
+    transition:.4s;
+}
+
+.item:hover .item-image{
+
+    transform:scale(1.15);
+
+    opacity:.9;
+}
+
+.item-info{
+
+    position:absolute;
+
+    left:0;
+    right:0;
+    bottom:0;
+
+    z-index:2;
+
+    padding:18px;
+
+    background:
+
+        linear-gradient(
+            transparent,
+            rgba(0,0,0,.92)
+        );
+}
+
+.item-info h3{
+
+    font-size:15px;
+
+    margin-bottom:6px;
+}
+
+.item-info p{
+
+    color:#898994;
+
+    font-size:11px;
+}
+
+/* BOTÃO INVISÍVEL ATÉ PASSAR O MOUSE */
+
+.game-card::after{
+
+    content:"▶ JOGAR";
+
+    position:absolute;
+
+    top:50%;
+    left:50%;
+
+    z-index:5;
+
+    transform:
+        translate(-50%,-50%)
+        scale(.8);
+
+    opacity:0;
+
+    padding:
+        11px 18px;
+
+    border-radius:10px;
+
+    background:#fff;
+
+    color:#050508;
+
+    font-size:11px;
+
+    font-weight:900;
+
+    transition:.3s;
+}
+
+.game-card:hover::after{
+
+    opacity:1;
+
+    transform:
+        translate(-50%,-50%)
+        scale(1);
+}
+
+/* =====================================================
    FOOTER
-========================= */
+===================================================== */
 
 footer{
 
@@ -894,14 +977,14 @@ footer{
 
     color:#555562;
 
-    font-size:12px;
-
     text-align:center;
+
+    font-size:12px;
 }
 
-/* =========================
+/* =====================================================
    MOBILE
-========================= */
+===================================================== */
 
 @media(max-width:750px){
 
@@ -949,37 +1032,113 @@ footer{
 
         grid-template-columns:
             repeat(2,1fr);
+
+        gap:12px;
     }
 
     .item{
 
-        height:210px;
+        height:220px;
+    }
+
+}
+
+/* =====================================================
+   MOBILE PEQUENO
+===================================================== */
+
+@media(max-width:450px){
+
+    .logo-small{
+
+        font-size:16px;
+
+        letter-spacing:3px;
+    }
+
+    .nav-links button{
+
+        font-size:9px;
+
+        padding:6px;
+    }
+
+    .items{
+
+        grid-template-columns:1fr 1fr;
+    }
+
+    .item{
+
+        height:190px;
+    }
+
+    .item-image{
+
+        font-size:40px;
     }
 
 }
 
 </style>
+
 </head>
 
 <body>
 
-<!-- PARTICLES -->
+
+<!-- =====================================================
+     PARTÍCULAS
+===================================================== -->
 
 <div class="particles">
 
-    <div class="particle" style="left:10%;top:30%;animation-delay:0s"></div>
-    <div class="particle" style="left:20%;top:70%;animation-delay:1s"></div>
-    <div class="particle" style="left:35%;top:20%;animation-delay:2s"></div>
-    <div class="particle" style="left:48%;top:80%;animation-delay:3s"></div>
-    <div class="particle" style="left:60%;top:35%;animation-delay:1s"></div>
-    <div class="particle" style="left:72%;top:65%;animation-delay:4s"></div>
-    <div class="particle" style="left:84%;top:25%;animation-delay:2s"></div>
-    <div class="particle" style="left:92%;top:75%;animation-delay:3s"></div>
+    <div
+        class="particle"
+        style="left:8%;top:20%;animation-delay:0s"
+    ></div>
+
+    <div
+        class="particle"
+        style="left:18%;top:70%;animation-delay:1s"
+    ></div>
+
+    <div
+        class="particle"
+        style="left:31%;top:30%;animation-delay:2s"
+    ></div>
+
+    <div
+        class="particle"
+        style="left:45%;top:80%;animation-delay:3s"
+    ></div>
+
+    <div
+        class="particle"
+        style="left:57%;top:25%;animation-delay:1s"
+    ></div>
+
+    <div
+        class="particle"
+        style="left:68%;top:65%;animation-delay:4s"
+    ></div>
+
+    <div
+        class="particle"
+        style="left:80%;top:35%;animation-delay:2s"
+    ></div>
+
+    <div
+        class="particle"
+        style="left:92%;top:75%;animation-delay:3s"
+    ></div>
 
 </div>
 
 
-<!-- LOADING -->
+<!-- =====================================================
+     LOADING
+===================================================== -->
 
 <div id="loading">
 
@@ -1008,11 +1167,16 @@ footer{
 </div>
 
 
-<!-- APP -->
+<!-- =====================================================
+     APP
+===================================================== -->
 
 <div id="app">
 
-<!-- NAVBAR -->
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
 
 <nav class="navbar">
 
@@ -1042,7 +1206,9 @@ footer{
 </nav>
 
 
-<!-- SELECTOR -->
+<!-- =====================================================
+     TELA INICIAL
+===================================================== -->
 
 <section id="selector">
 
@@ -1059,9 +1225,10 @@ footer{
 
     <p class="selector-description">
 
-        Entre no universo Nexus. Jogue seus jogos favoritos
-        ou explore uma experiência de entretenimento
-        criada para você.
+        Entre no universo Nexus.
+        Jogue, descubra novos jogos e explore
+        uma experiência de entretenimento criada
+        para você.
 
     </p>
 
@@ -1085,12 +1252,17 @@ footer{
             </h2>
 
             <p>
-                Descubra jogos online, explore categorias
-                e jogue diretamente pelo navegador.
+
+                Descubra jogos online,
+                explore categorias e jogue
+                diretamente pelo navegador.
+
             </p>
 
             <div class="mode-button">
+
                 JOGAR AGORA →
+
             </div>
 
         </div>
@@ -1112,12 +1284,17 @@ footer{
             </h2>
 
             <p>
-                Explore filmes e séries organizados
-                em uma experiência moderna.
+
+                Explore filmes e séries
+                organizados em uma experiência
+                moderna.
+
             </p>
 
             <div class="mode-button">
+
                 EXPLORAR →
+
             </div>
 
         </div>
@@ -1128,48 +1305,70 @@ footer{
 </section>
 
 
-<!-- GAMING -->
+<!-- =====================================================
+     GAMING
+===================================================== -->
 
 <section
     id="gaming"
     class="dashboard"
 >
 
+
     <button
         class="back"
         onclick="showSelector()"
     >
+
         ← Voltar
+
     </button>
 
+
+    <!-- HERO GAMING -->
 
     <div class="hero gaming-hero">
 
         <div class="hero-content">
 
             <div class="hero-tag">
+
                 NEXUS GAMING
+
             </div>
 
             <h1>
+
                 Jogue.<br>
                 Descubra.<br>
                 Divirta-se.
+
             </h1>
 
             <p>
-                Uma coleção de jogos online para jogar
-                diretamente no navegador.
+
+                Uma coleção de jogos online
+                para jogar diretamente no navegador.
+
             </p>
 
-            <button class="hero-button">
-                EXPLORAR JOGOS
+            <button
+                class="hero-button"
+                onclick="window.location.href='games.html'"
+            >
+
+                EXPLORAR JOGOS →
+
             </button>
 
         </div>
 
     </div>
 
+
+    <!-- =================================================
+         MAIS JOGADOS
+    ================================================== -->
 
     <div class="section">
 
@@ -1180,7 +1379,7 @@ footer{
             </h2>
 
             <span>
-                Ver todos →
+                Nexus Gaming
             </span>
 
         </div>
@@ -1188,55 +1387,170 @@ footer{
 
         <div class="items">
 
-            <div class="item">
-                <div class="item-image">🎮</div>
+
+            <!-- NEXUS DODGE -->
+
+            <div
+                class="item game-card"
+                onclick="
+                    window.location.href=
+                    'games/nexus-dodge.html'
+                "
+            >
+
+                <div class="item-image">
+
+                    🟣
+
+                </div>
 
                 <div class="item-info">
-                    <h3>Jogo em destaque</h3>
-                    <p>Ação • Online</p>
+
+                    <h3>
+                        Nexus Dodge
+                    </h3>
+
+                    <p>
+                        Arcade • ▶ Jogar
+                    </p>
+
                 </div>
+
             </div>
 
-            <div class="item">
-                <div class="item-image">🏎️</div>
+
+            <!-- NEXUS RACING -->
+
+            <div
+                class="item game-card"
+                onclick="
+                    window.location.href=
+                    'games.html'
+                "
+            >
+
+                <div class="item-image">
+
+                    🏎️
+
+                </div>
 
                 <div class="item-info">
-                    <h3>Racing Game</h3>
-                    <p>Corrida</p>
+
+                    <h3>
+                        Nexus Racing
+                    </h3>
+
+                    <p>
+                        Corrida • Em breve
+                    </p>
+
                 </div>
+
             </div>
 
-            <div class="item">
-                <div class="item-image">⚔️</div>
+
+            <!-- NEXUS ARENA -->
+
+            <div
+                class="item game-card"
+                onclick="
+                    window.location.href=
+                    'games.html'
+                "
+            >
+
+                <div class="item-image">
+
+                    ⚔️
+
+                </div>
 
                 <div class="item-info">
-                    <h3>Battle Arena</h3>
-                    <p>Ação</p>
+
+                    <h3>
+                        Nexus Arena
+                    </h3>
+
+                    <p>
+                        Ação • Em breve
+                    </p>
+
                 </div>
+
             </div>
 
-            <div class="item">
-                <div class="item-image">🧩</div>
+
+            <!-- PIXEL QUEST -->
+
+            <div
+                class="item game-card"
+                onclick="
+                    window.location.href=
+                    'games.html'
+                "
+            >
+
+                <div class="item-image">
+
+                    🧩
+
+                </div>
 
                 <div class="item-info">
-                    <h3>Puzzle World</h3>
-                    <p>Puzzle</p>
+
+                    <h3>
+                        Pixel Quest
+                    </h3>
+
+                    <p>
+                        Arcade • Em breve
+                    </p>
+
                 </div>
+
             </div>
 
-            <div class="item">
-                <div class="item-image">⚽</div>
+
+            <!-- SPACE MISSION -->
+
+            <div
+                class="item game-card"
+                onclick="
+                    window.location.href=
+                    'games.html'
+                "
+            >
+
+                <div class="item-image">
+
+                    🚀
+
+                </div>
 
                 <div class="item-info">
-                    <h3>Football Stars</h3>
-                    <p>Esportes</p>
+
+                    <h3>
+                        Space Mission
+                    </h3>
+
+                    <p>
+                        Aventura • Em breve
+                    </p>
+
                 </div>
+
             </div>
+
 
         </div>
 
     </div>
 
+
+    <!-- =================================================
+         NOVOS JOGOS
+    ================================================== -->
 
     <div class="section">
 
@@ -1247,7 +1561,7 @@ footer{
             </h2>
 
             <span>
-                Ver todos →
+                Em desenvolvimento
             </span>
 
         </div>
@@ -1255,41 +1569,114 @@ footer{
 
         <div class="items">
 
-            <div class="item">
-                <div class="item-image">👾</div>
+
+            <div
+                class="item game-card"
+                onclick="
+                    window.location.href=
+                    'games.html'
+                "
+            >
+
+                <div class="item-image">
+                    👾
+                </div>
 
                 <div class="item-info">
-                    <h3>Pixel Adventure</h3>
-                    <p>Aventura</p>
+
+                    <h3>
+                        Pixel Quest
+                    </h3>
+
+                    <p>
+                        Arcade
+                    </p>
+
                 </div>
+
             </div>
 
-            <div class="item">
-                <div class="item-image">🚀</div>
+
+            <div
+                class="item game-card"
+                onclick="
+                    window.location.href=
+                    'games.html'
+                "
+            >
+
+                <div class="item-image">
+                    🏍️
+                </div>
 
                 <div class="item-info">
-                    <h3>Space Mission</h3>
-                    <p>Arcade</p>
+
+                    <h3>
+                        Nexus Moto
+                    </h3>
+
+                    <p>
+                        Corrida
+                    </p>
+
                 </div>
+
             </div>
 
-            <div class="item">
-                <div class="item-image">🏹</div>
+
+            <div
+                class="item game-card"
+                onclick="
+                    window.location.href=
+                    'games.html'
+                "
+            >
+
+                <div class="item-image">
+                    🧟
+                </div>
 
                 <div class="item-info">
-                    <h3>Fantasy Quest</h3>
-                    <p>Aventura</p>
+
+                    <h3>
+                        Nexus Zombies
+                    </h3>
+
+                    <p>
+                        Ação
+                    </p>
+
                 </div>
+
             </div>
 
-            <div class="item">
-                <div class="item-image">🥊</div>
+
+            <div
+                class="item game-card"
+                onclick="
+                    window.location.href=
+                    'games.html'
+                "
+            >
+
+                <div class="item-image">
+                    ⚽
+                </div>
 
                 <div class="item-info">
-                    <h3>Street Fight</h3>
-                    <p>Luta</p>
+
+                    <h3>
+                        Nexus Football
+                    </h3>
+
+                    <p>
+                        Esportes
+                    </p>
+
                 </div>
+
             </div>
+
 
         </div>
 
@@ -1297,24 +1684,32 @@ footer{
 
 
     <footer>
-        NEXUS GAMING — Jogue, descubra e divirta-se.
+
+        NEXUS GAMING
+        © 2026
+
     </footer>
 
 </section>
 
 
-<!-- STREAMING -->
+<!-- =====================================================
+     STREAMING
+===================================================== -->
 
 <section
     id="streaming"
     class="dashboard"
 >
 
+
     <button
         class="back"
         onclick="showSelector()"
     >
+
         ← Voltar
+
     </button>
 
 
@@ -1323,28 +1718,38 @@ footer{
         <div class="hero-content">
 
             <div class="hero-tag streaming-tag">
+
                 NEXUS STREAMING
+
             </div>
 
             <h1>
+
                 Assista.<br>
                 Explore.<br>
                 Aproveite.
+
             </h1>
 
             <p>
-                Filmes e séries organizados em uma
-                experiência moderna e simples.
+
+                Filmes e séries organizados
+                em uma experiência moderna.
+
             </p>
 
             <button class="hero-button">
-                EXPLORAR CATÁLOGO
+
+                EXPLORAR CATÁLOGO →
+
             </button>
 
         </div>
 
     </div>
 
+
+    <!-- DESTAQUES -->
 
     <div class="section">
 
@@ -1355,7 +1760,7 @@ footer{
             </h2>
 
             <span>
-                Ver todos →
+                Seu catálogo
             </span>
 
         </div>
@@ -1363,108 +1768,90 @@ footer{
 
         <div class="items">
 
-            <div class="item">
-                <div class="item-image">🎬</div>
-
-                <div class="item-info">
-                    <h3>Filme em destaque</h3>
-                    <p>Ação • 2026</p>
-                </div>
-            </div>
 
             <div class="item">
-                <div class="item-image">🍿</div>
+
+                <div class="item-image">
+                    🎬
+                </div>
 
                 <div class="item-info">
-                    <h3>Movie Night</h3>
-                    <p>Comédia</p>
+
+                    <h3>
+                        Filme em destaque
+                    </h3>
+
+                    <p>
+                        Adicione seu conteúdo
+                    </p>
+
                 </div>
+
             </div>
+
 
             <div class="item">
-                <div class="item-image">👽</div>
+
+                <div class="item-image">
+                    🍿
+                </div>
 
                 <div class="item-info">
-                    <h3>Beyond Space</h3>
-                    <p>Ficção científica</p>
+
+                    <h3>
+                        Movie Night
+                    </h3>
+
+                    <p>
+                        Adicione seu conteúdo
+                    </p>
+
                 </div>
+
             </div>
+
 
             <div class="item">
-                <div class="item-image">👻</div>
+
+                <div class="item-image">
+                    🚀
+                </div>
 
                 <div class="item-info">
-                    <h3>Dark Night</h3>
-                    <p>Terror</p>
+
+                    <h3>
+                        Beyond Space
+                    </h3>
+
+                    <p>
+                        Adicione seu conteúdo
+                    </p>
+
                 </div>
+
             </div>
+
 
             <div class="item">
-                <div class="item-image">❤️</div>
+
+                <div class="item-image">
+                    👻
+                </div>
 
                 <div class="item-info">
-                    <h3>Love Story</h3>
-                    <p>Romance</p>
+
+                    <h3>
+                        Dark Night
+                    </h3>
+
+                    <p>
+                        Adicione seu conteúdo
+                    </p>
+
                 </div>
+
             </div>
 
-        </div>
-
-    </div>
-
-
-    <div class="section">
-
-        <div class="section-title">
-
-            <h2>
-                🎬 Filmes
-            </h2>
-
-            <span>
-                Ver catálogo →
-            </span>
-
-        </div>
-
-
-        <div class="items">
-
-            <div class="item">
-                <div class="item-image">🎥</div>
-
-                <div class="item-info">
-                    <h3>Filme 01</h3>
-                    <p>Aventura</p>
-                </div>
-            </div>
-
-            <div class="item">
-                <div class="item-image">🕵️</div>
-
-                <div class="item-info">
-                    <h3>Mystery</h3>
-                    <p>Suspense</p>
-                </div>
-            </div>
-
-            <div class="item">
-                <div class="item-image">💥</div>
-
-                <div class="item-info">
-                    <h3>Action Force</h3>
-                    <p>Ação</p>
-                </div>
-            </div>
-
-            <div class="item">
-                <div class="item-image">🧙</div>
-
-                <div class="item-info">
-                    <h3>Magic World</h3>
-                    <p>Fantasia</p>
-                </div>
-            </div>
 
         </div>
 
@@ -1472,26 +1859,34 @@ footer{
 
 
     <footer>
-        NEXUS STREAMING — Sua experiência de entretenimento.
+
+        NEXUS STREAMING
+        © 2026
+
     </footer>
 
 </section>
 
+
 </div>
 
 
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
 <script>
 
-/* =========================
+/* =====================================================
    LOADING
-========================= */
+===================================================== */
 
 window.addEventListener(
     "load",
-    () => {
+    function(){
 
         setTimeout(
-            () => {
+            function(){
 
                 document
                     .getElementById("loading")
@@ -1504,16 +1899,16 @@ window.addEventListener(
                     .add("show");
 
             },
-            3000
+            2600
         );
 
     }
 );
 
 
-/* =========================
-   NAVIGATION
-========================= */
+/* =====================================================
+   ESCONDER TUDO
+===================================================== */
 
 function hideAll(){
 
@@ -1532,10 +1927,17 @@ function hideAll(){
         .classList
         .remove("active");
 
-    window.scrollTo(0,0);
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
 
 }
 
+
+/* =====================================================
+   INÍCIO
+===================================================== */
 
 function showSelector(){
 
@@ -1549,6 +1951,10 @@ function showSelector(){
 }
 
 
+/* =====================================================
+   GAMING
+===================================================== */
+
 function openGaming(){
 
     hideAll();
@@ -1560,6 +1966,10 @@ function openGaming(){
 
 }
 
+
+/* =====================================================
+   STREAMING
+===================================================== */
 
 function openStreaming(){
 
@@ -1575,4 +1985,5 @@ function openStreaming(){
 </script>
 
 </body>
+
 </html>

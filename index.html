@@ -1,671 +1,133 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Nexus — Gaming & Streaming</title>
-
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            background: #050509;
-            color: white;
-            overflow-x: hidden;
-        }
-
-        /* =========================
-           LOADING
-        ========================= */
-
-        #loading {
-            position: fixed;
-            inset: 0;
-            background:
-                radial-gradient(circle at center, #24105c 0%, #090613 45%, #030305 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-            transition: opacity 1s ease, visibility 1s ease;
-        }
-
-        #loading.hidden {
-            opacity: 0;
-            visibility: hidden;
-        }
-
-        .loader-content {
-            text-align: center;
-        }
-
-        .logo {
-            font-size: 64px;
-            font-weight: 900;
-            letter-spacing: 12px;
-            background: linear-gradient(90deg, #ffffff, #9b5cff, #ffffff);
-            background-size: 200%;
-            -webkit-background-clip: text;
-            color: transparent;
-            animation: shine 2s linear infinite;
-        }
-
-        .subtitle {
-            margin-top: 12px;
-            font-size: 14px;
-            letter-spacing: 7px;
-            color: #aaa;
-        }
-
-        .loader {
-            width: 260px;
-            height: 4px;
-            background: #1b1b24;
-            border-radius: 50px;
-            margin: 35px auto 15px;
-            overflow: hidden;
-        }
-
-        .loader-bar {
-            width: 0%;
-            height: 100%;
-            background: linear-gradient(90deg, #7c3cff, #c084fc);
-            animation: loading 2.5s forwards;
-        }
-
-        .loading-text {
-            color: #777;
-            font-size: 12px;
-            letter-spacing: 3px;
-        }
-
-        @keyframes loading {
-            to {
-                width: 100%;
-            }
-        }
-
-        @keyframes shine {
-            0% {
-                background-position: 200%;
-            }
-
-            100% {
-                background-position: -200%;
-            }
-        }
-
-        /* =========================
-           MAIN
-        ========================= */
-
-        #app {
-            min-height: 100vh;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: 1s ease;
-        }
-
-        #app.show {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .background {
-            position: fixed;
-            inset: 0;
-            z-index: -2;
-            background:
-                radial-gradient(circle at 15% 20%, rgba(124, 58, 237, .18), transparent 30%),
-                radial-gradient(circle at 85% 70%, rgba(59, 130, 246, .12), transparent 30%),
-                #050509;
-        }
-
-        /* =========================
-           NAVBAR
-        ========================= */
-
-        nav {
-            height: 75px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 6%;
-            border-bottom: 1px solid rgba(255,255,255,.06);
-            backdrop-filter: blur(20px);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            background: rgba(5,5,9,.7);
-        }
-
-        .nav-logo {
-            font-size: 22px;
-            font-weight: 900;
-            letter-spacing: 4px;
-        }
-
-        .nav-buttons {
-            display: flex;
-            gap: 10px;
-        }
-
-        .nav-buttons button {
-            background: transparent;
-            color: #aaa;
-            border: 0;
-            padding: 10px 18px;
-            cursor: pointer;
-            border-radius: 10px;
-            transition: .3s;
-        }
-
-        .nav-buttons button:hover {
-            color: white;
-            background: rgba(255,255,255,.06);
-        }
-
-        /* =========================
-           SELECT
-        ========================= */
-
-        #selector {
-            min-height: calc(100vh - 75px);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 40px 20px;
-        }
-
-        .selector-title {
-            text-align: center;
-            margin-bottom: 50px;
-        }
-
-        .selector-title h1 {
-            font-size: clamp(35px, 6vw, 65px);
-            margin-bottom: 15px;
-        }
-
-        .selector-title p {
-            color: #888;
-            font-size: 16px;
-        }
-
-        .cards {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(280px, 400px));
-            gap: 25px;
-            width: 100%;
-            justify-content: center;
-        }
-
-        .mode-card {
-            position: relative;
-            padding: 45px 35px;
-            min-height: 300px;
-            border: 1px solid rgba(255,255,255,.08);
-            border-radius: 25px;
-            background: rgba(255,255,255,.035);
-            overflow: hidden;
-            cursor: pointer;
-            transition: .4s;
-        }
-
-        .mode-card:hover {
-            transform: translateY(-10px);
-            border-color: rgba(155,92,255,.6);
-            box-shadow: 0 20px 60px rgba(124,58,237,.18);
-        }
-
-        .mode-card::before {
-            content: "";
-            position: absolute;
-            width: 180px;
-            height: 180px;
-            background: #7c3aed;
-            filter: blur(100px);
-            opacity: .18;
-            top: -70px;
-            right: -70px;
-        }
-
-        .mode-icon {
-            font-size: 50px;
-            margin-bottom: 25px;
-        }
-
-        .mode-card h2 {
-            font-size: 30px;
-            margin-bottom: 12px;
-        }
-
-        .mode-card p {
-            color: #888;
-            line-height: 1.6;
-            margin-bottom: 30px;
-        }
-
-        .enter {
-            display: inline-block;
-            padding: 12px 22px;
-            border-radius: 10px;
-            background: white;
-            color: black;
-            font-weight: bold;
-        }
-
-        /* =========================
-           DASHBOARD
-        ========================= */
-
-        .dashboard {
-            display: none;
-            padding-bottom: 80px;
-        }
-
-        .dashboard.active {
-            display: block;
-            animation: dashboardIn .6s ease;
-        }
-
-        @keyframes dashboardIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .hero {
-            min-height: 430px;
-            padding: 100px 7%;
-            display: flex;
-            align-items: center;
-            background:
-                linear-gradient(90deg, #050509 10%, rgba(5,5,9,.7), transparent),
-                radial-gradient(circle at 70% 50%, #4c1d95, transparent 35%);
-        }
-
-        .hero-content {
-            max-width: 650px;
-        }
-
-        .tag {
-            color: #a78bfa;
-            font-weight: bold;
-            letter-spacing: 3px;
-            font-size: 12px;
-        }
-
-        .hero h1 {
-            font-size: clamp(40px, 6vw, 75px);
-            margin: 15px 0;
-        }
-
-        .hero p {
-            color: #999;
-            line-height: 1.7;
-            max-width: 550px;
-        }
-
-        .hero-button {
-            margin-top: 25px;
-            padding: 14px 25px;
-            border: 0;
-            border-radius: 10px;
-            background: white;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .section {
-            padding: 20px 7%;
-        }
-
-        .section h2 {
-            margin-bottom: 20px;
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            gap: 18px;
-        }
-
-        .item {
-            height: 240px;
-            border-radius: 15px;
-            background: linear-gradient(145deg, #17131f, #0d0d12);
-            border: 1px solid rgba(255,255,255,.06);
-            display: flex;
-            align-items: end;
-            padding: 18px;
-            position: relative;
-            overflow: hidden;
-            cursor: pointer;
-            transition: .3s;
-        }
-
-        .item:hover {
-            transform: translateY(-6px);
-            border-color: #7c3aed;
-        }
-
-        .item span {
-            position: relative;
-            z-index: 2;
-            font-weight: bold;
-        }
-
-        .item::after {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(transparent, rgba(0,0,0,.9));
-        }
-
-        .back {
-            margin: 25px 7%;
-            padding: 10px 18px;
-            border: 1px solid rgba(255,255,255,.1);
-            border-radius: 10px;
-            background: rgba(255,255,255,.05);
-            color: white;
-            cursor: pointer;
-        }
-
-        @media(max-width: 700px) {
-            .cards {
-                grid-template-columns: 1fr;
-            }
-
-            .logo {
-                font-size: 42px;
-                letter-spacing: 7px;
-            }
-
-            .nav-buttons button {
-                padding: 8px;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="theme-color" content="#07070c">
+<title>NEXUS — Gaming & Streaming</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#06060a;--panel:#0d0d14;--line:rgba(255,255,255,.08);--muted:#8d8d9b;--purple:#8b5cf6;--pink:#d946ef}
+html{scroll-behavior:smooth}
+body{font-family:Inter,Arial,sans-serif;background:var(--bg);color:#fff;min-height:100vh;overflow-x:hidden}
+button{font:inherit}
+body:before,body:after{content:"";position:fixed;z-index:-3;border-radius:50%;filter:blur(110px);opacity:.2;pointer-events:none}
+body:before{width:430px;height:430px;background:#6d28d9;top:-180px;left:-120px}
+body:after{width:420px;height:420px;background:#2563eb;right:-180px;bottom:-150px}
+#loading{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;background:#050508;transition:.8s}
+#loading.hide{opacity:0;visibility:hidden;pointer-events:none}
+.loader{text-align:center;width:min(520px,88vw)}
+.nexus-logo{font-size:clamp(42px,8vw,82px);font-weight:900;letter-spacing:.18em;margin-left:.18em;background:linear-gradient(90deg,#fff,#a78bfa,#f0abfc,#fff);background-size:250%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 2.5s linear infinite}
+.loading-sub{margin-top:12px;color:#888;letter-spacing:.38em;font-size:12px}
+.progress{height:4px;background:#191921;border-radius:99px;overflow:hidden;margin:38px auto 14px;max-width:330px}
+.progress i{display:block;height:100%;width:0;background:linear-gradient(90deg,#7c3aed,#d946ef);animation:load 2.4s cubic-bezier(.2,.7,.2,1) forwards}
+.load-status{font-size:11px;color:#686875;letter-spacing:.18em}
+@keyframes load{to{width:100%}}@keyframes shine{to{background-position:-250%}}
+#app{opacity:0;transform:translateY(12px);transition:1s ease}#app.show{opacity:1;transform:none}
+nav{height:76px;position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 5%;border-bottom:1px solid var(--line);background:rgba(6,6,10,.72);backdrop-filter:blur(22px)}
+.brand{font-weight:900;letter-spacing:.18em;font-size:20px}.brand b{color:#a78bfa}
+.navlinks{display:flex;gap:6px}.navlinks button{border:0;background:transparent;color:#92929e;padding:10px 15px;border-radius:10px;cursor:pointer;transition:.25s}.navlinks button:hover{background:#fff0a;color:#fff}
+#selector{min-height:calc(100vh - 76px);display:grid;place-items:center;padding:70px 5%}
+.selector-inner{width:min(1050px,100%);text-align:center}
+.eyebrow{font-size:11px;letter-spacing:.3em;color:#a78bfa;font-weight:700}
+.selector-inner h1{font-size:clamp(42px,7vw,78px);line-height:1;margin:16px 0 18px;letter-spacing:-.05em}
+.selector-inner>p{color:var(--muted);max-width:600px;margin:auto;line-height:1.7}
+.modes{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:55px;text-align:left}
+.mode{position:relative;min-height:320px;padding:34px;border:1px solid var(--line);border-radius:28px;overflow:hidden;cursor:pointer;background:linear-gradient(145deg,rgba(255,255,255,.055),rgba(255,255,255,.015));transition:.4s}
+.mode:hover{transform:translateY(-8px);border-color:rgba(167,139,250,.5);box-shadow:0 30px 90px rgba(0,0,0,.4)}
+.mode:before{content:"";position:absolute;width:260px;height:260px;border-radius:50%;filter:blur(70px);right:-100px;top:-120px;opacity:.32;background:#7c3aed}
+.mode.stream:before{background:#db2777}
+.mode-icon{font-size:42px;margin-bottom:45px}.mode h2{font-size:32px;margin-bottom:10px}.mode p{color:#90909c;line-height:1.65;max-width:430px}.enter{display:inline-flex;margin-top:25px;padding:12px 17px;border-radius:12px;background:#fff;color:#08080b;font-weight:800}
+.dashboard{display:none;min-height:calc(100vh - 76px)}.dashboard.active{display:block;animation:in .55s ease}@keyframes in{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+.hero{min-height:470px;padding:90px 7%;display:flex;align-items:center;position:relative;overflow:hidden;background:radial-gradient(circle at 75% 45%,rgba(124,58,237,.32),transparent 28%),linear-gradient(90deg,#06060a 8%,rgba(6,6,10,.76) 45%,rgba(6,6,10,.1)),#0a0910}
+.streamhero{background:radial-gradient(circle at 75% 45%,rgba(219,39,119,.3),transparent 28%),linear-gradient(90deg,#06060a 8%,rgba(6,6,10,.76) 45%,rgba(6,6,10,.1)),#0a090f}
+.hero h1{font-size:clamp(45px,7vw,82px);letter-spacing:-.055em;margin:14px 0}.hero p{color:#9999a5;line-height:1.7;max-width:570px}.tag{font-size:11px;letter-spacing:.28em;color:#b59cff;font-weight:800}.streamhero .tag{color:#f0a3cf}
+.primary{margin-top:25px;border:0;border-radius:12px;padding:14px 20px;font-weight:800;cursor:pointer;background:#fff;color:#07070a}
+.content{padding:15px 7% 80px}.section{margin-top:38px}.section-head{display:flex;align-items:end;justify-content:space-between;margin-bottom:17px}.section h2{font-size:21px}.section small{color:#73737e}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:15px}.card{height:225px;border-radius:17px;border:1px solid var(--line);background:linear-gradient(145deg,#15131c,#0c0c11);position:relative;overflow:hidden;display:flex;align-items:end;padding:17px;cursor:pointer;transition:.3s}.card:hover{transform:translateY(-5px);border-color:rgba(167,139,250,.5)}.card:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 70% 20%,rgba(139,92,246,.42),transparent 35%),linear-gradient(transparent 35%,rgba(0,0,0,.9));}.streamcard:before{background:radial-gradient(circle at 70% 20%,rgba(236,72,153,.42),transparent 35%),linear-gradient(transparent 35%,rgba(0,0,0,.9))}.card span{position:relative;z-index:2;font-weight:800}.back{margin:24px 7% 0;background:#111119;color:#ddd;border:1px solid var(--line);padding:9px 14px;border-radius:10px;cursor:pointer}
+@media(max-width:700px){nav{padding:0 4%}.navlinks button{padding:8px 7px;font-size:12px}.modes{grid-template-columns:1fr}.mode{min-height:270px}.mode-icon{margin-bottom:28px}.hero{min-height:420px;padding:75px 7%}.grid{grid-template-columns:repeat(2,1fr)}.card{height:205px}}
+</style>
 </head>
-
 <body>
-
 <div id="loading">
-    <div class="loader-content">
-        <div class="logo">NEXUS</div>
-        <div class="subtitle">GAMING & STREAMING</div>
-
-        <div class="loader">
-            <div class="loader-bar"></div>
-        </div>
-
-        <div class="loading-text">INICIALIZANDO...</div>
-    </div>
+  <div class="loader">
+    <div class="nexus-logo">NEXUS</div>
+    <div class="loading-sub">GAMING & STREAMING</div>
+    <div class="progress"><i></i></div>
+    <div class="load-status">INICIALIZANDO EXPERIÊNCIA...</div>
+  </div>
 </div>
 
 <div id="app">
-
-    <div class="background"></div>
-
-    <nav>
-        <div class="nav-logo">NEXUS</div>
-
-        <div class="nav-buttons">
-            <button onclick="showSelector()">Início</button>
-            <button onclick="openGaming()">🎮 Gaming</button>
-            <button onclick="openStreaming()">🎬 Streaming</button>
-        </div>
-    </nav>
-
-    <!-- SELECTOR -->
-
-    <section id="selector">
-
-        <div class="selector-title">
-            <h1>Bem-vindo à Nexus</h1>
-            <p>Escolha uma experiência para continuar.</p>
-        </div>
-
-        <div class="cards">
-
-            <div class="mode-card" onclick="openGaming()">
-
-                <div class="mode-icon">🎮</div>
-
-                <h2>Gaming</h2>
-
-                <p>
-                    Explore jogos online, descubra novos títulos
-                    e jogue diretamente pelo navegador.
-                </p>
-
-                <div class="enter">
-                    ENTRAR →
-                </div>
-
-            </div>
-
-            <div class="mode-card" onclick="openStreaming()">
-
-                <div class="mode-icon">🎬</div>
-
-                <h2>Streaming</h2>
-
-                <p>
-                    Encontre filmes e séries organizados
-                    em uma experiência moderna de streaming.
-                </p>
-
-                <div class="enter">
-                    ENTRAR →
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-    <!-- GAMING -->
-
-    <section id="gaming" class="dashboard">
-
-        <button class="back" onclick="showSelector()">← Voltar</button>
-
-        <div class="hero">
-
-            <div class="hero-content">
-
-                <div class="tag">NEXUS GAMING</div>
-
-                <h1>Jogue agora.</h1>
-
-                <p>
-                    Uma coleção de jogos online para você
-                    jogar diretamente pelo navegador.
-                </p>
-
-                <button class="hero-button">
-                    EXPLORAR JOGOS
-                </button>
-
-            </div>
-
-        </div>
-
-        <div class="section">
-
-            <h2>🔥 Jogos populares</h2>
-
-            <div class="grid">
-
-                <div class="item"><span>Jogo 01</span></div>
-                <div class="item"><span>Jogo 02</span></div>
-                <div class="item"><span>Jogo 03</span></div>
-                <div class="item"><span>Jogo 04</span></div>
-                <div class="item"><span>Jogo 05</span></div>
-
-            </div>
-
-        </div>
-
-        <div class="section">
-
-            <h2>🆕 Novos jogos</h2>
-
-            <div class="grid">
-
-                <div class="item"><span>Novo jogo 01</span></div>
-                <div class="item"><span>Novo jogo 02</span></div>
-                <div class="item"><span>Novo jogo 03</span></div>
-                <div class="item"><span>Novo jogo 04</span></div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-    <!-- STREAMING -->
-
-    <section id="streaming" class="dashboard">
-
-        <button class="back" onclick="showSelector()">← Voltar</button>
-
-        <div class="hero">
-
-            <div class="hero-content">
-
-                <div class="tag">NEXUS STREAMING</div>
-
-                <h1>Assista agora.</h1>
-
-                <p>
-                    Filmes e séries organizados em uma
-                    experiência simples, rápida e moderna.
-                </p>
-
-                <button class="hero-button">
-                    EXPLORAR CATÁLOGO
-                </button>
-
-            </div>
-
-        </div>
-
-        <div class="section">
-
-            <h2>🔥 Em destaque</h2>
-
-            <div class="grid">
-
-                <div class="item"><span>Filme 01</span></div>
-                <div class="item"><span>Filme 02</span></div>
-                <div class="item"><span>Filme 03</span></div>
-                <div class="item"><span>Filme 04</span></div>
-                <div class="item"><span>Filme 05</span></div>
-
-            </div>
-
-        </div>
-
-        <div class="section">
-
-            <h2>🎬 Filmes</h2>
-
-            <div class="grid">
-
-                <div class="item"><span>Filme 01</span></div>
-                <div class="item"><span>Filme 02</span></div>
-                <div class="item"><span>Filme 03</span></div>
-                <div class="item"><span>Filme 04</span></div>
-
-            </div>
-
-        </div>
-
-    </section>
-
+<nav>
+  <div class="brand">NEXUS <b>●</b></div>
+  <div class="navlinks">
+    <button onclick="home()">Início</button>
+    <button onclick="gaming()">🎮 Gaming</button>
+    <button onclick="streaming()">🎬 Streaming</button>
+  </div>
+</nav>
+
+<section id="home" >
+  <div id="selector">
+    <div class="selector-inner">
+      <div class="eyebrow">WELCOME TO NEXUS</div>
+      <h1>Seu entretenimento.<br>Do seu jeito.</h1>
+      <p>Escolha sua experiência e entre em um universo de jogos e streaming criado para ser rápido, bonito e simples.</p>
+      <div class="modes">
+        <article class="mode" onclick="gaming()">
+          <div class="mode-icon">🎮</div><h2>Gaming</h2>
+          <p>Explore jogos online, categorias, novidades e seus favoritos em uma experiência inspirada nos grandes portais de jogos.</p>
+          <span class="enter">ENTRAR NO GAMING →</span>
+        </article>
+        <article class="mode stream" onclick="streaming()">
+          <div class="mode-icon">🎬</div><h2>Streaming</h2>
+          <p>Uma área separada para filmes e séries que você disponibilizar, com catálogo, destaques e uma experiência de player moderna.</p>
+          <span class="enter">ENTRAR NO STREAMING →</span>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="gamingDash" class="dashboard">
+  <button class="back" onclick="home()">← Voltar</button>
+  <div class="hero">
+    <div><div class="tag">NEXUS GAMING</div><h1>Jogue agora.</h1><p>Descubra jogos para navegador, veja o que está em alta e encontre seu próximo favorito.</p><button class="primary">EXPLORAR JOGOS</button></div>
+  </div>
+  <div class="content">
+    <div class="section"><div class="section-head"><h2>🔥 Mais jogados</h2><small>Ver todos</small></div><div class="grid">
+      <div class="card"><span>Jogo em destaque</span></div><div class="card"><span>Corrida Nitro</span></div><div class="card"><span>Arena Battle</span></div><div class="card"><span>Pixel Adventure</span></div><div class="card"><span>Football Stars</span></div>
+    </div></div>
+    <div class="section"><div class="section-head"><h2>🆕 Novos jogos</h2><small>Atualizados recentemente</small></div><div class="grid">
+      <div class="card"><span>Nova Aventura</span></div><div class="card"><span>Speed Racer</span></div><div class="card"><span>Space Quest</span></div><div class="card"><span>Zombie Rush</span></div>
+    </div></div>
+  </div>
+</section>
+
+<section id="streamDash" class="dashboard">
+  <button class="back" onclick="home()">← Voltar</button>
+  <div class="hero streamhero">
+    <div><div class="tag">NEXUS STREAMING</div><h1>Assista agora.</h1><p>Uma área exclusiva para seu catálogo de filmes e séries, com uma experiência moderna de streaming.</p><button class="primary">EXPLORAR CATÁLOGO</button></div>
+  </div>
+  <div class="content">
+    <div class="section"><div class="section-head"><h2>🔥 Em destaque</h2><small>Ver catálogo</small></div><div class="grid">
+      <div class="card streamcard"><span>Filme em destaque</span></div><div class="card streamcard"><span>Filme 02</span></div><div class="card streamcard"><span>Filme 03</span></div><div class="card streamcard"><span>Filme 04</span></div><div class="card streamcard"><span>Filme 05</span></div>
+    </div></div>
+    <div class="section"><div class="section-head"><h2>🎬 Filmes</h2><small>Todos</small></div><div class="grid">
+      <div class="card streamcard"><span>Filme 01</span></div><div class="card streamcard"><span>Filme 02</span></div><div class="card streamcard"><span>Filme 03</span></div><div class="card streamcard"><span>Filme 04</span></div>
+    </div></div>
+  </div>
+</section>
 </div>
 
 <script>
-
-    const loading = document.getElementById("loading");
-    const app = document.getElementById("app");
-
-    window.addEventListener("load", () => {
-
-        setTimeout(() => {
-
-            loading.classList.add("hidden");
-            app.classList.add("show");
-
-        }, 2800);
-
-    });
-
-    function hideDashboards() {
-
-        document.getElementById("selector")
-            .style.display = "none";
-
-        document.getElementById("gaming")
-            .classList.remove("active");
-
-        document.getElementById("streaming")
-            .classList.remove("active");
-
-        window.scrollTo(0, 0);
-    }
-
-    function showSelector() {
-
-        document.getElementById("selector")
-            .style.display = "flex";
-
-        document.getElementById("gaming")
-            .classList.remove("active");
-
-        document.getElementById("streaming")
-            .classList.remove("active");
-
-        window.scrollTo(0, 0);
-    }
-
-    function openGaming() {
-
-        hideDashboards();
-
-        document.getElementById("gaming")
-            .classList.add("active");
-
-    }
-
-    function openStreaming() {
-
-        hideDashboards();
-
-        document.getElementById("streaming")
-            .classList.add("active");
-
-    }
-
+const loading=document.getElementById('loading'),app=document.getElementById('app');
+window.addEventListener('load',()=>setTimeout(()=>{loading.classList.add('hide');app.classList.add('show')},2700));
+function home(){document.getElementById('home').style.display='block';document.getElementById('gamingDash').classList.remove('active');document.getElementById('streamDash').classList.remove('active');scrollTo(0,0)}
+function gaming(){document.getElementById('home').style.display='none';document.getElementById('streamDash').classList.remove('active');document.getElementById('gamingDash').classList.add('active');scrollTo(0,0)}
+function streaming(){document.getElementById('home').style.display='none';document.getElementById('gamingDash').classList.remove('active');document.getElementById('streamDash').classList.add('active');scrollTo(0,0)}
 </script>
-
 </body>
 </html>
